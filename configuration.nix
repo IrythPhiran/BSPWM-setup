@@ -13,11 +13,7 @@
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/*";
 
   networking.hostName = "uNnixOS"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -45,18 +41,21 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  #services.xserver.displayManager.defaultSession = "none+bspwm";
+  services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.windowManager.openbox.enable = true;
-  services.xserver.windowManager.icewm.enable = true;
-  # services.xserver.windowManager.bspwm.configFile = "/home/jorgeveloso/"
-  # services.xserver.windowManager.bspwm.sxhkd.configFile = "/home/jorveloso/.sxhkdrc";
   nixpkgs.config.allowUnfree = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkbOptions = "eurosign:e";
-
+  nixpkgs.config.zsh.enable = true;
+  nixpkgs.config.picom.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      vim = "vim";
+    };
+    enableCompletion = true;
+    autosuggestions.enable = true;
+  };
+  
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -70,12 +69,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jorgeveloso = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clementine arandr htop neofetch screenfetch chromium picom kitty rxvt-unicode feh dmenu gnome.nautilus chafa vim pavucontrol qutebrowser flameshot bspwm sxhkd discord icewm openbox sakura ];
+  environment.systemPackages = with pkgs; [ clementine arandr htop neofetch screenfetch chromium picom kitty rxvt-unicode feh dmenu gnome.nautilus chafa vim pavucontrol qutebrowser flameshot bspwm sxhkd discord zsh zsh-autosuggestions zsh-syntax-highlighting lxappearance ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -86,7 +86,6 @@
   # };
 
   # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
 
