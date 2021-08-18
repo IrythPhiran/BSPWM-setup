@@ -75,7 +75,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clementine arandr htop neofetch screenfetch chromium picom kitty rxvt-unicode feh dmenu gnome.nautilus chafa vim pavucontrol qutebrowser flameshot bspwm sxhkd discord zsh zsh-autosuggestions zsh-syntax-highlighting lxappearance ];
+  environment.systemPackages = with pkgs; [ clementine arandr htop neofetch screenfetch chromium picom kitty rxvt-unicode feh dmenu gnome.nautilus chafa vim pavucontrol qutebrowser flameshot bspwm sxhkd discord zsh zsh-autosuggestions zsh-syntax-highlighting lxappearance arc-theme ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
