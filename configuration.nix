@@ -13,7 +13,7 @@
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/*";
+  boot.loader.grub.device = "/dev/vda";
 
   networking.hostName = "uNnixOS"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -43,6 +43,8 @@
   services.xserver.layout = "us";
   services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "jorgeveloso";
   services.xserver.windowManager.bspwm.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.zsh.enable = true;
@@ -55,7 +57,10 @@
     enableCompletion = true;
     autosuggestions.enable = true;
   };
-  
+  programs.steam.enable = true;
+  # Configure keymap in X11
+  # services.xserver.xkbOptions = "eurosign:e";
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -75,7 +80,40 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ clementine arandr htop neofetch screenfetch chromium picom kitty rxvt-unicode feh dmenu gnome.nautilus chafa vim pavucontrol qutebrowser flameshot bspwm sxhkd discord zsh zsh-autosuggestions zsh-syntax-highlighting lxappearance arc-theme arc-icon-theme hack-font font-awesome ];
+  environment.systemPackages = with pkgs; [ 
+  clementine 
+  arandr 
+  htop 
+  neofetch 
+  screenfetch 
+  chromium 
+  picom 
+  kitty 
+  rxvt-unicode 
+  feh 
+  dmenu 
+  gnome.nautilus 
+  chafa 
+  vim 
+  pavucontrol 
+  qutebrowser 
+  flameshot 
+  bspwm 
+  sxhkd 
+  discord 
+  zsh 
+  zsh-autosuggestions 
+  zsh-syntax-highlighting 
+  lxappearance 
+  lightdm 
+  arc-theme 
+  arc-icon-theme 
+  youtube-dl 
+  mpv 
+  vlc 
+  steam 
+  numix-cursor-theme 
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -86,6 +124,7 @@
   # };
 
   # List services that you want to enable:
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
 
