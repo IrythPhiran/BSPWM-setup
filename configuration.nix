@@ -9,10 +9,13 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   networking.hostName = "Unixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -25,7 +28,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = true;
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -39,16 +41,21 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.layout = "us";
   services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "jorgeveloso";
   services.xserver.windowManager.bspwm.enable = true;
+  services.xserver.deviceSection = ''Option "TearFree" "true"'';
+  services.picom = {
+    enable = true;
+    vSync = true;
+  };
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.zsh.enable = true;
-  nixpkgs.config.picom.enable = true;
-  programs.zsh = {
+    programs.zsh = {
     enable = true;
     shellAliases = {
       vim = "vim";
@@ -112,8 +119,13 @@
   vlc 
   steam 
   numix-cursor-theme 
-  zip
-  unzip
+  xarchiver
+  lutris
+  killall
+  xdelta
+  cmatrix
+  deluge
+  gnome.file-roller
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -128,6 +140,15 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
+  # Enable cron service
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "0 12 * * *      root    nix-channel --update"
+      "0 13 * * *      root    nixos-rebuild switch"
+    ];
+  };
+  # Additional auto system upgrades.
   system.autoUpgrade.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -143,4 +164,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
-}
+} 
