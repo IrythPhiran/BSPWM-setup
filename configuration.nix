@@ -13,6 +13,7 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
   # Use the systemd-boot EFI boot loader.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -49,6 +50,7 @@
   services.xserver.displayManager.autoLogin.user = "jorgeveloso";
   services.xserver.windowManager.bspwm.enable = true;
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
+  services.gvfs.enable = true;
   services.picom = {
     enable = true;
     vSync = true;
@@ -64,6 +66,8 @@
     autosuggestions.enable = true;
   };
   programs.steam.enable = true;
+  programs.dconf.enable = true;
+  virtualisation.libvirtd.enable = true;
   # Configure keymap in X11
   # services.xserver.xkbOptions = "eurosign:e";
 
@@ -81,7 +85,7 @@
   users.users.jorgeveloso = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
@@ -117,7 +121,6 @@
   youtube-dl 
   mpv 
   vlc 
-  steam 
   numix-cursor-theme 
   xarchiver
   lutris
@@ -126,6 +129,18 @@
   cmatrix
   deluge
   gnome.file-roller
+  gparted
+  gnome.zenity
+  openssl
+  pythonFull
+  tree
+  gimp
+  pcsx2
+  elinks
+  steam
+  fortune
+  nmap
+  virt-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -141,13 +156,11 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
   # Enable cron service
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "0 12 * * *      root    nix-channel --update"
-      "0 13 * * *      root    nixos-rebuild switch"
-    ];
-  };
+  # services.cron = {
+  #  enable = true;
+  #  systemCronJobs = [
+  #  ];
+  # };
   # Additional auto system upgrades.
   system.autoUpgrade.enable = true;
   # Open ports in the firewall.
@@ -164,4 +177,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
-} 
+}
