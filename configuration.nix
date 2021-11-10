@@ -141,6 +141,14 @@
   fortune
   nmap
   virt-manager
+  gnome.gnome-disk-utility
+  efibootmgr
+  firefox
+  oneko
+  shotcut
+  fd
+  tldr
+  ion
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -177,4 +185,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
-}
+} 
