@@ -12,6 +12,7 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.bluetooth.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
@@ -45,8 +46,11 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.layout = "us";
   services.xserver.displayManager.defaultSession = "none+bspwm";
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    background = "/etc/lightdm/wallpaper.jpg";
+  };
+  services.xserver.displayManager.autoLogin.enable = false;
   services.xserver.displayManager.autoLogin.user = "jorgeveloso";
   services.xserver.windowManager.bspwm.enable = true;
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
@@ -65,11 +69,15 @@
     enableCompletion = true;
     autosuggestions.enable = true;
   };
-  programs.steam.enable = true;
   programs.dconf.enable = true;
   virtualisation.libvirtd.enable = true;
   # Configure keymap in X11
   # services.xserver.xkbOptions = "eurosign:e";
+  
+  #Custom Fonts
+  fonts.fonts = with pkgs; [
+  font-awesome
+  ];  
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -123,7 +131,6 @@
   vlc 
   numix-cursor-theme 
   xarchiver
-  lutris
   killall
   xdelta
   cmatrix
@@ -135,20 +142,26 @@
   pythonFull
   tree
   gimp
-  pcsx2
   elinks
-  steam
   fortune
   nmap
   virt-manager
   gnome.gnome-disk-utility
   efibootmgr
-  firefox
   oneko
   shotcut
   fd
   tldr
-  ion
+  blueman
+  gucharmap
+  font-awesome
+  lemonbar
+  sysstat
+  wesnoth
+  okular
+  ranger
+  woeusb
+  tcpdump
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -163,6 +176,8 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "jorgeveloso" ];
   # Enable cron service
   # services.cron = {
   #  enable = true;
@@ -172,10 +187,10 @@
   # Additional auto system upgrades.
   system.autoUpgrade.enable = true;
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 20 21 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
