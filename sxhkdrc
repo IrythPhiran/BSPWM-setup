@@ -49,6 +49,9 @@ super + r
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# ATOM text editor
+super + a
+	atom
 #
 # bspwm hotkeys
 #
