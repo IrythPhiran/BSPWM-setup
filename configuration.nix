@@ -19,6 +19,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+  #Nix automatic garbage collection and auto-optimization of the /nix/store
+  nix.gc.automatic = true;
+
   networking.hostName = "Unixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -73,7 +76,10 @@
   virtualisation.libvirtd.enable = true;
   # Configure keymap in X11
   # services.xserver.xkbOptions = "eurosign:e";
-  
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  
+
   #Custom Fonts
   fonts.fonts = with pkgs; [
   font-awesome
@@ -106,7 +112,6 @@
   screenfetch 
   chromium 
   picom 
-  kitty 
   rxvt-unicode 
   feh 
   dmenu 
@@ -130,16 +135,13 @@
   mpv 
   vlc 
   numix-cursor-theme 
-  xarchiver
   killall
-  xdelta
   cmatrix
   deluge
   gnome.file-roller
   gparted
   gnome.zenity
   openssl
-  pythonFull
   tree
   gimp
   elinks
@@ -158,10 +160,14 @@
   lemonbar
   sysstat
   wesnoth
-  okular
   ranger
   woeusb
   tcpdump
+  roxterm
+  sl
+  atom
+  okular
+  dig
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -198,6 +204,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  #system.stateVersion = "nixos-21.11"; 
   system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
 } 
