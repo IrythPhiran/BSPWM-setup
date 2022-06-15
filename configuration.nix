@@ -168,6 +168,18 @@
   atom
   okular
   dig
+  ntfs3g
+  vbam
+  mgba
+  wget
+  clamav
+  chkrootkit
+  yt-dlp
+  lsof
+  sox
+  file
+  zip
+  unzip
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -179,10 +191,16 @@
   # };
 
   # List services that you want to enable:
-
+  services = {
+  clamav = {
+      daemon.enable=true;
+      updater.enable=true;
+    };
+  };
   # Enable the OpenSSH daemon.
-  services.openssh.enable = false;
+  services.openssh.enable = true;
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
   users.extraGroups.vboxusers.members = [ "jorgeveloso" ];
   # Enable cron service
   # services.cron = {
@@ -204,7 +222,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  #system.stateVersion = "nixos-21.11"; 
+  #system.stateVersion = "nixos-20.11"; 
   system.stateVersion = "nixos-unstable"; # Did you read the comment?
 
 } 
