@@ -33,6 +33,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = true;
+  networking.networkmanager.enable = false;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -127,6 +128,10 @@
   zsh 
   zsh-autosuggestions 
   zsh-syntax-highlighting 
+  zsh-completions
+  zsh-nix-shell
+  zsh-autocomplete
+  spaceship-prompt
   lxappearance 
   lightdm 
   arc-theme 
@@ -137,7 +142,9 @@
   numix-cursor-theme 
   killall
   cmatrix
+  qbittorrent
   deluge
+  transmission
   gnome.file-roller
   gparted
   gnome.zenity
@@ -180,6 +187,8 @@
   file
   zip
   unzip
+  lutris
+  asciiquarium
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
