@@ -189,6 +189,8 @@
   unzip
   lutris
   asciiquarium
+  inetutils
+  hypnotix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
