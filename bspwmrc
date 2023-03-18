@@ -3,12 +3,21 @@
 killall lemonbar
 pgrep -x sxhkd > /dev/null || sxhkd &
 #picom --no-fading-openclose &
-feh --bg-fill --randomize ~/Documents/Wallpapers/* &
-#feh --bg-fill --randomize ~/Documents/Animu/*
 setxkbmap pt
 xsetroot -cursor_name left_ptr
+
+feh --bg-fill --randomize ~/Documents/Wallpapers/* &
+#feh --bg-fill --randomize $HOME/Documents/AI\ pape/* &
+#feh --bg-fill --randomize ~/Documents/Animu/*
+#feh --bg-fill ~/Images/pape.jpg
+
+# Vertical Screen configuration
+#xrandr --output HDMI-A-1 --rotate left; xrandr --output DisplayPort-0 --mode 1920x1080 -r 119.99; xrandr --output DisplayPort-0 --mode 1920x1080 -r 143.99 --right-of HDMI-A-1 --mode 1920x1080
+#bash $HOME/Scripts/lemonbar.sh | lemonbar -p -B \#80000000 -F \#FFFFFF -g 980x25+50+10 -n MyBar &
+
+# Regular Double Screen configuration
 xrandr --output DisplayPort-0 --mode 1920x1080 -r 119.99; xrandr --output DisplayPort-0 --mode 1920x1080 -r 143.99 --right-of HDMI-A-1 --mode 1920x1080
-bash /home/jorgeveloso/lemonbar.sh | lemonbar -p -B \#0000000 -g 1800x50+50 -n MyBar &
+bash $HOME/Scripts/lemonbar.sh | lemonbar -p -B \#80000000 -F \#FFFFFF -g 1800x25+50+10 -n MyBar &
 
 bspc monitor DisplayPort-0 -d I II III IV V VI VII VIII IX X 
 

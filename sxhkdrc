@@ -4,19 +4,22 @@
 
 # terminal emulator
 super + Return
-	kitty	
+    kitty
 
 # alt terminal
 super + alt + Return
-	urxvt
+	roxterm
 
-#Chromium
+##Chromium
+#super + c
+#	chromium
+#Firefox
 super + c
-	chromium
+	firefox
 
 #File Explorer
 super + n
-	nautilus
+    nemo
 
 #Clementine
 super + alt + c
@@ -45,13 +48,18 @@ super + alt + g
 super + r
 	dmenu_run
 
+# hypnotix
+super + alt + h
+	hypnotix
+
+# alock (Screen Lock)
+super + alt + ctrl + l
+	alock -b image:file=/home/jorgeveloso/Images/bsdwallpaper.jpg
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# ATOM text editor
-super + a
-	atom
 #
 # bspwm hotkeys
 #

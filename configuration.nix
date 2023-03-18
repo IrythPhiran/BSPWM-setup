@@ -12,6 +12,7 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages = with pkgs; [ amdvlk ];
   hardware.bluetooth.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -100,7 +101,7 @@
   users.users.jorgeveloso = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -111,12 +112,13 @@
   htop 
   neofetch 
   screenfetch 
-  chromium 
   picom 
   rxvt-unicode 
   feh 
   dmenu 
   gnome.nautilus 
+  libsForQt5.dolphin
+  cinnamon.nemo
   chafa 
   vim 
   pavucontrol 
@@ -136,16 +138,12 @@
   lightdm 
   arc-theme 
   arc-icon-theme 
-  youtube-dl 
   mpv 
   vlc 
   numix-cursor-theme 
   killall
   cmatrix
-  qbittorrent
   deluge
-  transmission
-  gnome.file-roller
   gparted
   gnome.zenity
   openssl
@@ -166,18 +164,13 @@
   font-awesome
   lemonbar
   sysstat
-  wesnoth
   ranger
   woeusb
   tcpdump
   roxterm
   sl
-  atom
-  okular
   dig
   ntfs3g
-  vbam
-  mgba
   wget
   clamav
   chkrootkit
@@ -187,14 +180,38 @@
   file
   zip
   unzip
-  lutris
+  p7zip
   asciiquarium
   inetutils
   hypnotix
+  alock
+  rpi-imager
+  lftp
+  filezilla
+  firefox
+  ffmpeg
+  kitty
+  btop
+  forge-mtg
+  smartmontools
+  lm_sensors
+  gnome.eog
+  haskellPackages.dice
+  vscodium
+  shellcheck
+  rustc
+  cargo
+  rustup
+  obs-studio
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
+    # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
+  programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
@@ -210,8 +227,11 @@
   };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.rsyslogd.enable = true;
+  virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.docker.rootless.enable = true;
   users.extraGroups.vboxusers.members = [ "jorgeveloso" ];
   # Enable cron service
   # services.cron = {
@@ -222,7 +242,7 @@
   # Additional auto system upgrades.
   system.autoUpgrade.enable = true;
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 20 21 ];
+  # networking.firewall.allowedTCPPorts = [ ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
