@@ -1,0 +1,37 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+#killall lemonbar
+pgrep -x sxhkd > /dev/null || sxhkd &
+#picom --no-fading-openclose &
+setxkbmap pt
+xset mouse 0 0
+xsetroot -cursor_name left_ptr
+
+feh --bg-fill --randomize ~/Documents/Wallpapers/* &
+#feh --bg-fill --randomize $HOME/Documents/AI\ pape/* &
+#feh --bg-fill --randomize ~/Documents/Animu/*
+#feh --bg-fill ~/Images/pape.jpg
+
+# Regular Screen configuration
+xrandr --output eDP-1 --mode 1920x1080 --rate 60
+bash $HOME/Scripts/lemonbar.sh | lemonbar -p -B \#80000000 -F \#FFFFFF -g 1800x25+50+10 -n MyBar &
+
+bspc monitor DisplayPort-0 -d I II III IV V
+
+bspc config border_width         0
+bspc config window_gap          16
+
+bspc config split_ratio          0.50
+#bsspc config borderless_monocle   true
+#bspc config gapless_monocle      true
+
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a Chromium desktop='^2'
+#bspc rule -a mplayer2 state=floating
+#bspc rule -a Kupfer.py focus=on
+#bspc rule -a Screenkey manage=off
+
