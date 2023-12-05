@@ -75,21 +75,7 @@
     autosuggestions.enable = true;
   };
   programs.dconf.enable = true;
-  virtualisation.libvirtd.enable = true;
-  # Configure keymap in X11
-  # services.xserver.xkbOptions = "eurosign:e";
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  
-
-  #Custom Fonts
-  fonts.fonts = with pkgs; [
-  font-awesome
-  ];  
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
+  virtualisation.libvirtd.enable = true; # Configure keymap in X11 # services.xserver.xkbOptions = "eurosign:e"; systemd.services.mdmonitor.enable = false; services.flatpak.enable = true; xdg.portal.enable = true; xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  #Custom Fonts fonts.packages = with pkgs; [ font-awesome ];  # Enable CUPS to print documents.  # services.printing.enable = true;
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -156,7 +142,6 @@
   gnome.gnome-disk-utility
   efibootmgr
   oneko
-  shotcut
   fd
   tldr
   blueman
@@ -202,7 +187,19 @@
   rustc
   cargo
   rustup
+  lutris
+  openshot-qt
   obs-studio
+  unrar
+  fluent-reader
+  gnome-feeds
+  cockatrice
+  fritzing
+  flatpak
+  calibre
+  wineWowPackages.stable
+  wineWowPackages.staging
+  winetricks
   ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -228,11 +225,11 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.rsyslogd.enable = true;
-  virtualisation.docker.enable = true;
+  #virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
-  virtualisation.docker.rootless.enable = true;
-  users.extraGroups.vboxusers.members = [ "jorgeveloso" ];
+  #virtualisation.docker.rootless.enable = true;
+  #users.extraGroups.vboxusers.members = [ "jorgeveloso" ];
   # Enable cron service
   # services.cron = {
   #  enable = true;
