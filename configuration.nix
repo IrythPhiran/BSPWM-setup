@@ -13,7 +13,8 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [ amdvlk ];
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = false;
+
   # Use the systemd-boot EFI boot loader.
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
@@ -23,7 +24,7 @@
   #Nix automatic garbage collection and auto-optimization of the /nix/store
   nix.gc.automatic = true;
 
-  networking.hostName = "Unixos"; # Define your hostname.
+  networking.hostName = "Jupiter"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -34,7 +35,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = true;
-  networking.networkmanager.enable = false;
+  networking.networkmanager.enable = true;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -43,13 +44,13 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";
   };
+  console.useXkbConfig = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
-  services.xserver.layout = "us";
+  services.xserver.layout = "pt";
   services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.displayManager.lightdm = {
     enable = true;
@@ -73,12 +74,20 @@
     };
     enableCompletion = true;
     autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
   };
   programs.dconf.enable = true;
   virtualisation.libvirtd.enable = true; # Configure keymap in X11 # services.xserver.xkbOptions = "eurosign:e"; systemd.services.mdmonitor.enable = false; services.flatpak.enable = true; xdg.portal.enable = true; xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  #Custom Fonts fonts.packages = with pkgs; [ font-awesome ];  # Enable CUPS to print documents.  # services.printing.enable = true;
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  #hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -97,18 +106,16 @@
   arandr 
   htop 
   neofetch 
+  fastfetch
   screenfetch 
   picom 
   rxvt-unicode 
   feh 
   dmenu 
   gnome.nautilus 
-  libsForQt5.dolphin
-  cinnamon.nemo
   chafa 
   vim 
   pavucontrol 
-  qutebrowser 
   flameshot 
   bspwm 
   sxhkd 
@@ -126,7 +133,8 @@
   arc-icon-theme 
   mpv 
   vlc 
-  numix-cursor-theme 
+  vimix-cursor-theme
+  vimix-cursors
   killall
   cmatrix
   deluge
@@ -155,7 +163,7 @@
   roxterm
   sl
   dig
-  ntfs3g
+  #ntfs3g
   wget
   clamav
   chkrootkit
@@ -171,49 +179,33 @@
   hypnotix
   alock
   rpi-imager
-  lftp
-  filezilla
+  #lftp
+  #filezilla
   firefox
   ffmpeg
   kitty
   btop
-  forge-mtg
+  #forge-mtg
   smartmontools
   lm_sensors
   gnome.eog
   haskellPackages.dice
   vscodium
   shellcheck
-  rustc
-  cargo
-  rustup
+  #rustc
+  #cargo
+  #rustup
   lutris
-  openshot-qt
   obs-studio
   unrar
-  fluent-reader
-  gnome-feeds
-  cockatrice
   fritzing
   flatpak
   calibre
   wineWowPackages.stable
   wineWowPackages.staging
   winetricks
+  networkmanager
   ];
-
-    # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
   services = {
